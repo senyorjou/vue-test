@@ -6,7 +6,8 @@
 </template>
 
 <script>
-// @ is an alias to /src
+import { mapActions, mapState } from "vuex"
+
 import MainForm from "@/components/MainForm.vue"
 import Steps from "@/components/Steps.vue"
 
@@ -15,6 +16,18 @@ export default {
   components: {
     MainForm,
     Steps,
+  },
+
+  mounted: function() {
+    this.LOAD_SCHEMA()
+  },
+
+  computed: {
+    ...mapState(["isLoading", "schema_str"]),
+  },
+
+  methods: {
+    ...mapActions(["LOAD_SCHEMA"]),
   },
 }
 </script>
