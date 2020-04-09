@@ -1,8 +1,8 @@
 <template>
   <div class="w-full max-w-xs">
     <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <div v-for="field in fields" :key="field.id">
-        <component :is="field.type" :props="field" />
+      <div v-for="field in steps[currentStep]" :key="field.id">
+        <component :is="getComponent(field)" :props="field" />
       </div>
 
       <div class="flex items-center justify-between">
@@ -14,7 +14,12 @@
         </button>
       </div>
     </form>
-    <textarea class="font-mono text-xs" cols="50" rows="10" v-model="schema_str"></textarea>
+    <textarea
+      class="font-mono text-xs"
+      cols="50"
+      rows="10"
+      v-model="schema_str"
+    ></textarea>
   </div>
 </template>
 
@@ -31,32 +36,22 @@ export default {
     TextField,
   },
 
-  data() {
-    return {
-      fields: [
-        {
-          name: "Email",
-          id: "email",
-          type: TextField,
-          data: "spyder@onna.com",
-        },
-        {
-          name: "Password",
-          id: "password",
-          type: PasswordField,
-        },
-        {
-          name: "Include channels",
-          id: "channels_toggle",
-          type: BoolCheckBoxField,
-          data: true,
-        },
-      ],
-    }
-  },
-
   computed: {
-    ...mapState(["schema_str"]),
+    ...mapState(["schema_str", "currentStep", "steps"]),
+  },
+  methods: {
+    getComponent(field) {
+      console.log(field)
+      switch (field.kind) {
+        case "single-line-textbox":
+          if (field.echo === false) {
+            return PasswordField
+          }
+          return TextField
+        case "foo":
+          return BoolCheckBoxField
+      }
+    },
   },
 }
 </script>

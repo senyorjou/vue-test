@@ -23,7 +23,7 @@ export default {
   },
 
   computed: {
-    ...mapState(["isLoading", "schema_str"]),
+    ...mapState(["isLoading"]),
   },
 
   methods: {

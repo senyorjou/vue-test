@@ -10,6 +10,8 @@ export default new Vuex.Store({
     isLoading: false,
     schema: {},
     schema_str: null,
+    currentStep: 0,
+    steps: [],
   },
 
   mutations: {
@@ -19,6 +21,8 @@ export default new Vuex.Store({
     SET_SCHEMA(state, schema) {
       state.schema = schema
       state.schema_str = JSON.stringify(schema, undefined, 4)
+      state.steps.push(schema.ui_configuration.items)
+      state.currentStep = 0
     },
   },
 

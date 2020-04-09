@@ -16,7 +16,7 @@
           'text-blue-700',
           index === 0 ? 'rounded-l' : '',
           index === stepsList.length - 1 ? 'rounded-r' : '',
-          index === 0 ? 'bg-gray-200' : '',
+          index === currentStep ? 'bg-gray-200' : '',
           'hover:bg-gray-400',
           'cursor-pointer',
         ]"
@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex"
+
 export default {
   name: "Steps",
   props: {
@@ -37,6 +39,8 @@ export default {
     stepsList: function() {
       return this.steps.split(",").map(step => step.trim())
     },
+
+    ...mapState(["currentStep"]),
   },
 }
 </script>
